@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <header>
+ <img src="images/Logo.png" alt="RR Business" style="height:100px;position:absolute;left:15px;top:5px">
+   RR Business Dashboard
+</header>
+    <img src="images/Logo.png" alt="R.R. Business Logo" style="height: 100px; margin-left: 15px; margin-top: 5px; float:left;">
+    <title>RR Business Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #a83232;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-size: 28px;
+        }
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #a83232;
+        }
+        .container {
+            padding: 30px;
+            background: white;
+            margin: 30px auto;
+            width: 90%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #a83232;
+            margin-bottom: 30px;
+        }
+        .dashboard-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+        }
+        .card {
+            flex: 1 1 200px;
+            background-color: #fff;
+            padding: 20px;
+            border-left: 8px solid #a83232;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .card h3 {
+            font-size: 20px;
+            color: #333;
+        }
+        .card p {
+            font-size: 30px;
+            font-weight: bold;
+            color: #a83232;
+        }
+    </style>
+</head>
+<body>
+
+<header>R.R. Business Dashboard</header>
+
+<nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="admin_pannel.php">Manage Products</a>
+    <a href="view_order.php">View Orders</a>
+    <a href="customer_queries.php">Customer Queries</a>
+    <a href="logout.html">Logout</a>
+</nav>
+
+<div class="container">
+    <h2>Welcome to RR Business Dashboard</h2>
+
+    <div class="dashboard-cards">
+
+   <div class="card">
+      <h3>Total Products</h3>
+      <p id="tp">12</p>
+   </div>
+
+   <div class="card">
+      <h3>New Orders</h3>
+      <p id="no">4</p>
+   </div>
+
+   <div class="card">
+      <h3>In Progress</h3>
+      <p id="ip">2</p>
+   </div>
+
+   <div class="card">
+      <h3>Orders Completed</h3>
+      <p id="co">10</p>
+   </div>
+
+   <div class="card">
+      <h3>Pending Queries</h3>
+      <p id="pq">3</p>
+   </div>
+
+   <div class="card">
+      <h3>Completed Queries</h3>
+      <p id="cq">6</p>
+   </div>
+
+</div>
+
+</div>
+<script>
+function refreshCounts () {
+    console.log('refreshCounts start');       // 👈  ये नई लाइन
+    fetch('get_counts.php')
+      .then(r => r.json())
+      .then(c => {
+         console.log('resp = ', c);           // 👈  ये भी नई लाइन
+         document.getElementById('tp').textContent = c.total_products;
+         /* ...बाकी कोड... */
+      })
+      .catch(err => console.error('fetch fail', err));
+}
+refreshCounts();
+setInterval(refreshCounts, 15000);
+</script>
+
+</body>
+</html>
